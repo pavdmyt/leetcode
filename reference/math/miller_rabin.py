@@ -1,5 +1,16 @@
 from random import randrange
 
+"""
+Fermat's little theorem
+~~~~~~~~~~~~~~~~~~~~~~~
+
+p - prime number
+n < p
+
+n^p mod p = n
+
+"""
+
 
 def is_prime(n, k=30):
     # http://en.wikipedia.org/wiki/Miller%E2%80%93Rabin_primality_test
