@@ -1,51 +1,66 @@
-from collections import OrderedDict
+# from collections import OrderedDict
 
 
+# Implementation of this solution:
+# https://leetcode.com/problems/integer-to-roman/discuss/6274/Simple-Solution
 class Solution:
     def intToRoman(self, num):
         """
         :type num: int
         :rtype: str
         """
-        dct = OrderedDict()
-        dct[1] = "I"
-        dct[4] = "IV"
-        dct[5] = "V"
-        dct[9] = "IX"
-        dct[10] = "X"
-        dct[40] = "XL"
-        dct[50] = "L"
-        dct[90] = "XC"
-        dct[100] = "C"
-        dct[400] = "CD"
-        dct[500] = "D"
-        dct[900] = "CM"
-        dct[1000] = "M"
+        M = ("", "M", "MM", "MMM")
+        C = ("", "C", "CC", "CCC", "CD", "D", "DC", "DCC", "DCCC", "CM")
+        X = ("", "X", "XX", "XXX", "XL", "L", "LX", "LXX", "LXXX", "XC")
+        I = ("", "I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX")
+        return M[num//1000] + C[(num%1000)//100] + X[(num%100)//10] + I[num%10]
 
-        keys = list(dct.keys())
-        max_num = keys[-1]
-        roman = ""
 
-        while num > 0:
-            for i, key in enumerate(keys):
-
-                if num >= max_num:
-                    roman += dct[max_num]
-                    num -= max_num
-                    break
-
-                if key == num:
-                    roman += dct[key]
-                    num -= key
-                    break
-
-                if key > num:
-                    prev = keys[i-1]
-                    roman += dct[prev]
-                    num -= prev
-                    break
-
-        return roman
+# class Solution:
+#     def intToRoman(self, num):
+#         """
+#         :type num: int
+#         :rtype: str
+#         """
+#         dct = OrderedDict()
+#         dct[1] = "I"
+#         dct[4] = "IV"
+#         dct[5] = "V"
+#         dct[9] = "IX"
+#         dct[10] = "X"
+#         dct[40] = "XL"
+#         dct[50] = "L"
+#         dct[90] = "XC"
+#         dct[100] = "C"
+#         dct[400] = "CD"
+#         dct[500] = "D"
+#         dct[900] = "CM"
+#         dct[1000] = "M"
+#
+#         keys = list(dct.keys())
+#         max_num = keys[-1]
+#         roman = ""
+#
+#         while num > 0:
+#             for i, key in enumerate(keys):
+#
+#                 if num >= max_num:
+#                     roman += dct[max_num]
+#                     num -= max_num
+#                     break
+#
+#                 if key == num:
+#                     roman += dct[key]
+#                     num -= key
+#                     break
+#
+#                 if key > num:
+#                     prev = keys[i-1]
+#                     roman += dct[prev]
+#                     num -= prev
+#                     break
+#
+#         return roman
 
 
 test_cases = [
