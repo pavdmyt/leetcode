@@ -4,54 +4,42 @@ class Solution:
         :type str: str
         :rtype: int
         """
-        res = ""
-        num_seen = False
-
         is_num = lambda ch: 48 <= ord(ch) <= 57
         is_wh = lambda ch: ch == " "
         is_sign = lambda ch: ch == "-" or ch == "+"
         is_junk = lambda ch: not (is_num(ch) or is_wh(ch) or is_sign(ch))
 
+        res = ""
+        num_seen = False
+
         for i, ch in enumerate(s):
+
+            if is_junk(ch):
+                break
 
             if is_wh(ch):
                 if num_seen:
                     break
-                else:
-                    continue
-
-            if is_junk(ch):
-                break
+                continue
 
             if is_num(ch):
                 num_seen = True
                 res += ch
 
-            if is_sign(ch) and num_seen:
-                break
+            if is_sign(ch):
+                if num_seen:
+                    break
+                else:
+                    if i < len(s)-1:
+                        nxt = s[i+1]
+                        if is_num(nxt):
+                            res += ch
+                        else:
+                            break
 
-            if is_sign(ch) and not num_seen:
-                if i < len(s)-1:
-                    nxt = s[i+1]
-                    if is_num(nxt):
-                        res += ch
-                    else:
-                        break
-
-        if not res:
-            res += "0"
-        num = int(res)
-
+        num = int(res) if res else 0
         # int32 handling
-        max_int32 = 2**31 - 1
-        min_int32 = 2**31 * -1
-
-        if num > max_int32:
-            num = max_int32
-        if num < min_int32:
-            num = min_int32
-
-        return num
+        return max(min(num, 2**31 - 1), -2**31)
 
 
 test_cases = [
